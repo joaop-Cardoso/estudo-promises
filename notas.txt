@@ -1,0 +1,93 @@
+-Promise está esperando um retorno para fazer algo
+assim que esse algo retornar, a promessa será cumprida, será rodado
+o código de dentro
+
+-Pra criar a promessa precisa instanciar a classe Promisse
+
+-Leva 2 argumentos: Resolve(soluçao) e reject(erro)
+Para encadear mais processos utiliza-se o método then
+
+-Alguns recursos de JS(fetch API) e bibliotecas retornam Promises
+
+-------PASSOS-------
+1-Instancia uma const do tipo Promise (const blabla = new Promise)
+2-No instanciamento coloca uma arrow function com os parametros
+resolve e reject
+3-O resultado passa pra .then((resultado)=>{faz coisa})
+
+-------TEORIA-------
+1- Ao instanciar a classe Promise(), ela espera que seja
+passada como parâmetro uma função com 2 parâmetros. Sendo 
+o primeiro o que acontece quando a operação assíncrona
+é CONCLUÍDA COM SUCESSO, e o segundo o que acontece quando
+a mesma FALHA. por CONVENÇÃO são chamados de resolve()
+e reject(). Os parâmetros resolve() e reject() por si só
+são funções que recebem o valor resolvido ou rejeitado 
+da promise, guardam esses valores e depois poadem dar 
+continuidade depois com o .then() ou .catch().
+
+2- Método .then() serve para efetivamente executar a promise.
+Cada .then() em uma cadeia de Promises executa 
+uma única operação sobre o valor resolvido pela Promise 
+anterior e, em seguida, passa o resultado adiante para o 
+próximo .then() na cadeia.
+
+  {palavras do GPT: "Quando uma Promise é resolvida com 
+  sucesso (através do resolve()), o valor passado para 
+  resolve() será passado como argumento para a função 
+  de callback do .then()."
+    
+    e 
+
+        "Quando uma Promise é rejeitada (através do reject())
+        , o valor passado para reject() será passado como 
+        argumento para a função de callback do .catch() ou 
+        como segundo argumento para a função de callback do 
+        .then() caso seja definido um tratamento de erro."}
+
+3- Se não fornecer uma função de callback para 
+.then() ou .catch(), o valor resolvido ou rejeitado 
+será passado adiante para o próximo .then() ou .catch(). 
+Isso é conhecido como "propagação de Promise".
+
+4- .catch() serve para catar um erro de reject.
+se em algum momento der erro e reject() for cumprido,
+.catch((aqui)=>{}) receberá o valor passado para reject()
+
+5- para resolver ou processar mais de uma promisse ao mesmo
+tempo, podemos juntar todas elas em uma constante usando o 
+um metodo da classe Promise que chama .all(). Passamos 
+um array com todas as promises [p1,p2,etc...]. Podemos depois
+utilizar o método .then que o (data) será o conteudo
+gravado e concatenado em resolve ou reject anteriormente
+de todas as promises, é o callback. RETORNA A RESPOSTA
+>>>>APENAS<<<< QUANDO TODAS TIVEREM SIDO RESOLVIDAS 
+OBS: as promessas são executadas de forma assíncrona! 
+uma não espera a outra terminar. Simplesmente as que 
+vão terminando primeiro vão sendo resolvidas, as promessas não bloqueiam o código.
+
+6- .race é quase a mesma coisa de .all, com a diferença
+a resolução da promessa que acontecer mais rapido dentre
+todas é que é a retornada. SÓ uma. SÓ ela.
+
+7- Fetch é uma API nativa do Javascript.
+ela espera um endpoint dentro do () e pode ter outros
+argumentos depois, como por ex method(obrigatorio),
+headers, body...
+exemplo: fetch(`endpoint/${variavel}`),
+{
+  method: 'POST',
+  headers: {
+    'Content-Type': 'application/json'
+  }
+}
+se eu escrevo uma string entre ``, posso chamar variáveis
+ou constantes dentro com ${var ou const}
+Fetch retorna uma promise.
+
+O parâmetro retornado por uma resposta da promise para o
+callback de .then((parâmetro))=>{codigo} pode ser 
+retornado do .then sendo transformado em json, assim
+return parametro.json();. Todo atributo do parametro 
+jsonificado(depois de ser transformado) é um campo do
+json. Pra usar é só parametro.atributo
